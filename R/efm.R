@@ -2401,13 +2401,19 @@ suppressWarnings({
       if(type=="EVID") {
         print("Calculating under Hp...")
         time <- system.time({  mlefit_hp <- calcMLE(set$nC_hp,set$samples,set$popFreq,set$refData,set$condOrder_hp,set$knownref_hp,set$kit,set$DEG,set$BWS,set$FWS, set$threshT, set$prC, set$lambda, set$fst, NULL,NULL,              set$minFreq, set$normalize,  opt$steptol, opt$nDone, opt$delta, opt$difftol, opt$seed, TRUE, set$priorBWS,set$priorFWS, opt$maxThreads, set$adjQbp) })[3]      
-        print(paste0("Optimizing under Hp took ",format(time,digits=5),"s"))
+        print(set$nC_hp)
+        print(set$condOrder_hp)
+        print(set$knownref_hp)
+	print(paste0("Optimizing under Hp took ",format(time,digits=5),"s"))
         if(!is.null(set$mlefit_hp) && set$mlefit_hp$fit$loglik>mlefit_hp$fit$loglik )  mlefit_hp <- set$mlefit_hp #the old model was better
       }
       
       #fit under hd: (does it for all type of calculations)
       nUhp <- set$nC_hp-sum(set$condOrder_hp>0) #number of unknowns	 
-      print("Calculating under Hd...")
+
+      print(set$nC_hd)
+      print(set$condOrder_hd)
+      print(set$knownref_hd)
       time <- system.time({    mlefit_hd <- calcMLE(set$nC_hd,set$samples,set$popFreq,set$refData,set$condOrder_hd,set$knownref_hd,set$kit,set$DEG,set$BWS,set$FWS, set$threshT, set$prC, set$lambda, set$fst, set$knownRel, set$ibd,  set$minFreq, set$normalize,  opt$steptol, opt$nDone, opt$delta, opt$difftol, opt$seed, TRUE, set$priorBWS,set$priorFWS, opt$maxThreads, set$adjQbp) })[3]
       print(paste0("Optimizing under Hd took ",format(time,digits=5),"s"))
       if(!is.null(set$mlefit_hd) && set$mlefit_hd$fit$loglik>mlefit_hd$fit$loglik )  mlefit_hd <- set$mlefit_hd #the old model was better
